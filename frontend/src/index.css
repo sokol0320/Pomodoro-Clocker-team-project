@@ -1,0 +1,200 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #111215;
+  color: #ffffff;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #2c2e33;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #95a5a6;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 5px 10px;
+}
+
+.nav-btn.active {
+  color: #ffffff;
+  border-bottom: 2px solid #e74c3c;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #c0392b;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.pomodoro-card {
+  background-color: #1c1e22;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  text-align: center;
+  width: 100%;
+  max-width: 450px;
+  box-sizing: border-box;
+  margin-top: 60px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-field {
+  background-color: #2c2e33;
+  border: 1px solid #434850;
+  border-radius: 6px;
+  padding: 12px;
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.error-text {
+  color: #e74c3c;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.primary-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 100%;
+}
+
+.switch-auth-text {
+  margin-top: 20px;
+  cursor: pointer;
+  color: #3498db;
+  font-size: 0.9rem;
+}
+
+.stage-badge {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.timer-display {
+  font-size: 2.8rem;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.sub-text {
+  color: #bdc3c7;
+  margin-bottom: 25px;
+}
+
+.buttons-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.control-btn {
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.settings-input {
+  background-color: #2c2e33;
+  border: 1px solid #434850;
+  border-radius: 6px;
+  padding: 8px;
+  color: white;
+  width: 80px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-box {
+  background-color: #2c2e33;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.history-list {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-right: 5px;
+}
+
+.history-item {
+  background-color: #2c2e33;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
