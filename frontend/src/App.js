@@ -112,9 +112,9 @@ function App() {
             />
         )}
         {screen === 'tasks' && <Tasks tasks={tasks} setTasks={setTasks} startTask={startTask} activeTask={activeTask} />}
-        {screen === 'settings' && <Settings settings={settings} setSettings={setSettings} />}
+        {screen === 'settings' && <Settings settings={settings} setSettings={setSettings} onBack={() => setScreen('timer')} />}
         {screen === 'stats' && <Stats history={history} />}
-        {screen === 'history' && <History history={history} />}
+        {screen === 'history' && <History history={history} onBack = {() => setScreen('timer')} />}
       </div>
   );
 }
