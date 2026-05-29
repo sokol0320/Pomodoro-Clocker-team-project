@@ -35,8 +35,8 @@ function Auth({ onLogin }) {
         <div className="pomodoro-card">
             <h2>{isRegistering ? 'Реєстрація' : 'Вхід у Pomodoro Clocker'}</h2>
             <form onSubmit={handleSubmit} className="form-group">
-                <input type="text" placeholder="Логін (testuser)" value={username} onChange={e => setUsername(e.target.value)} required className="input-field" />
-                <input type="password" placeholder="Пароль (password123)" value={password} onChange={e => setPassword(e.target.value)} required className="input-field" />
+                <input type="text" placeholder="Логін" value={username} onChange={e => setUsername(e.target.value)} required className="input-field" />
+                <input type="password" placeholder="Пароль" value={password} onChange={e => setPassword(e.target.value)} required className="input-field" />
                 {error && <p className="error-text">{error}</p>}
                 <button type="submit" className="primary-btn">{isRegistering ? 'Зареєструватися' : 'Увійти'}</button>
             </form>
