@@ -1,72 +1,119 @@
-# Getting Started with Create React App
+⏱️ Pomodoro Clocker (Трекер продуктивності)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Pomodoro Clocker — це веб-додаток на React, створений для підвищення особистої продуктивності за допомогою методу «Помодоро». Додаток поєднує в собі класичний таймер з можливостями управління задачами, ведення статистики та відстеження історії сесій.
+🌟 Основний функціонал
 
-## Available Scripts
+    Налаштовуваний таймер: Три режими (Фокус, Коротка перерва, Довга перерва). Користувач може самостійно налаштувати тривалість кожного етапу.
 
-In the project directory, you can run:
+    Управління задачами (To-Do): Створення задач, прив'язка їх до активного таймера («Фокус на: ...») та позначення як виконаних.
 
-### `npm start`
+    Теги сесій: Виконані сесії фокусування автоматично тегуються назвою активної задачі.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    Детальна статистика: Відображення кількості сесій та часу фокусування за сьогодні/тиждень, визначення найпродуктивнішого дня та графік розподілу часу за задачами.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Історія: Збереження хронології всіх сесій із зазначенням дати, тривалості, етапу та тегу задачі.
 
-### `npm test`
+    Сповіщення (Web Notifications API): Браузерні сповіщення про завершення часу фокусування або перерви.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Темна та світла теми: Перемикач тем для комфортної роботи в будь-який час доби.
 
-### `npm run build`
+    Авторизація: Проста система входу з локальною базою даних користувачів.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Локальне збереження даних: Вся інформація (задачі, історія, налаштування, тема) зберігається у localStorage вашого браузера.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🛠 Технологічний стек
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Frontend: React (Функціональні компоненти, Hooks: useState, useEffect, useRef).
 
-### `npm run eject`
+    Стилізація: Звичайний CSS (index.css) з використанням CSS-змінних для підтримки тем.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    Зберігання даних: Web Storage API (localStorage).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Сповіщення: Notification API + HTML5 Audio.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+📂 Структура проєкту
+Plaintext
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+src/
+├── components/
+│   ├── Auth.jsx       # Компонент екрану авторизації та реєстрації
+│   ├── History.jsx    # Компонент відображення історії завершених сесій
+│   ├── Settings.jsx   # Налаштування тривалості таймерів та інтервалів
+│   ├── Stats.jsx      # Аналітика, продуктивні дні, графіки за тегами
+│   ├── Tasks.jsx      # Управління списком задач (додавання, старт, видалення)
+│   └── Timer.jsx      # Головний компонент таймера та відображення активної задачі
+├── notifications.js   # Утиліти для запиту дозволів та надсилання браузерних сповіщень
+├── index.css          # Глобальні стилі та CSS-змінні для світлої/темної теми
+├── App.js             # Головний компонент: стан додатку, навігація (роутинг) та логіка сесій
+└── index.js           # Точка входу в додаток
 
-## Learn More
+💾 Схема даних (LocalStorage)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Додаток використовує такі ключі в localStorage для збереження стану між сесіями:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    pomodoro_user: Об'єкт поточного авторизованого користувача.
 
-### Code Splitting
+    pomodoro_users_db: Масив усіх зареєстрованих користувачів (імітація БД). За замовчуванням містить testuser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    pomodoro_settings: Налаштування таймера (наприклад, { focusTime: 25, shortBreak: 5, longBreak: 15, longBreakInterval: 4 }).
 
-### Analyzing the Bundle Size
+    pomodoro_history: Масив об'єктів сесій. Кожен об'єкт містить id, duration, date, stage та tag (назву задачі).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    pomodoro_tasks: Масив об'єктів поточних задач (to-do list).
 
-### Making a Progressive Web App
+    pomodoro_theme: Поточна тема інтерфейсу ('light' або 'dark').
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🧩 Опис головних компонентів
+App.js
 
-### Advanced Configuration
+Серце додатку. Тут зберігаються глобальні стани: user, screen (для навігації), tasks, activeTask, history, theme та налаштування таймера. Компонент відповідає за маршрутизацію (перемикання між вкладками) і логіку завершення сесії handleSessionComplete.
+Timer.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Відповідає за зворотний відлік часу. Використовує setInterval для оновлення секунд та хвилин. Відтворює звуковий сигнал та викликає функцію зміни етапу (Focus -> Break). Якщо є activeTask, відображає її назву та кнопку «Завершити задачу».
+Tasks.jsx
 
-### Deployment
+Дозволяє додавати нові завдання у список. Напроти кожного завдання є кнопка «Почати», яка робить задачу активною і переводить користувача на екран таймера.
+Stats.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Парсить дані з history і виводить:
 
-### `npm run build` fails to minify
+    Загальну статистику (сьогодні / тиждень).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    Найпродуктивніший день (розрахунок максимуму згрупованих по днях сесій).
 
-### 111
+    Список задач у вигляді гістограми (відношення часу задачі до загального часу).
+
+History.jsx
+
+Виводить хронологічний список сесій. Додає візуальний бейдж з назвою задачі (якщо сесія була прив'язана до задачі).
+notifications.js
+
+Ізольована логіка для роботи з API браузера. requestNotificationPermission() викликається при першому завантаженні App.js, а notifyTimerEnd(stage) викликається, коли таймер доходить до 00:00.
+🚀 Як запустити проєкт локально
+
+    Клонуйте репозиторій (або створіть новий React проєкт):
+    Bash
+
+    npx create-react-app pomodoro-clocker
+    cd pomodoro-clocker
+
+    Перенесіть файли: Скопіюйте всі створені нами компоненти, App.js, index.css та notifications.js у папку src.
+
+    Запустіть проєкт:
+    Bash
+
+    npm start
+
+    Додаток буде доступний за адресою: http://localhost:3000.
+
+    Тестовий користувач: При першому запуску автоматично створюється акаунт username: testuser, password: password123.
+
+💡 Подальші ідеї для розвитку (Roadmap)
+
+    [ ] Синхронізація з бекендом (Node.js/Express + MongoDB) замість localStorage.
+
+    [ ] Інтеграція зі сторонніми сервісами (Google Calendar, Todoist).
+
+    [ ] Кастомні звуки завершення таймера на вибір користувача.
+
+    [ ] Експорт статистики у CSV/PDF.
