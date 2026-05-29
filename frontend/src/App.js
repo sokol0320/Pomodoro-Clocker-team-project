@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './index.css'; // Імпорт CSS файлу
+import './index.css';
 import Auth from './components/Auth';
 import Timer from './components/Timer';
 import Settings from './components/Settings';
 import Stats from './components/Stats';
 import History from './components/History';
+
+// Імпортуємо наші функції сповіщень
+import { requestNotificationPermission, notifyTimerEnd } from './utils/notifications';
 
 function App() {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('pomodoro_user')));
@@ -33,6 +36,11 @@ function App() {
     }
   }, []);
 
+  // Викликаємо імпортовану функцію для запиту дозволу при завантаженні
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
+
   useEffect(() => {
     if (!isActive && seconds === 0) {
       setMinutes(stage === 'focus' ? settings.focusTime : stage === 'short_break' ? settings.shortBreak : settings.longBreak);
@@ -54,6 +62,9 @@ function App() {
   const handleSessionComplete = (duration) => {
     const newSession = { id: Date.now(), duration, date: new Date().toISOString() };
     setHistory(prev => [newSession, ...prev]);
+
+    // Викликаємо імпортовану функцію з передачею поточного етапу
+    notifyTimerEnd(stage);
   };
 
   if (!user) {
@@ -61,35 +72,34 @@ function App() {
   }
 
   return (
-    <div className="app-container">
-      <nav className="navbar">
-        <span style={{ fontWeight: 'bold', color: '#e74c3c' }}>⏱️ Pomodoro Clocker</span>
-        <div className="nav-links">
-          <button onClick={() => setScreen('timer')} className={`nav-btn ${screen === 'timer' ? 'active' : ''}`}>Таймер</button>
-          <button onClick={() => setScreen('settings')} className={`nav-btn ${screen === 'settings' ? 'active' : ''}`}>Налаштування</button>
-          <button onClick={() => setScreen('stats')} className={`nav-btn ${screen === 'stats' ? 'active' : ''}`}>Статистика</button>
-          <button onClick={() => setScreen('history')} className={`nav-btn ${screen === 'history' ? 'active' : ''}`}>Історія</button>
-          
-          {/* Повертаємо вивід імені поточного користувача */}
-          <span style={{ color: '#bdc3c7', fontSize: '0.9rem', marginLeft: '5px' }}>
+      <div className="app-container">
+        <nav className="navbar">
+          <span style={{ fontWeight: 'bold', color: '#e74c3c' }}>⏱️ Pomodoro Clocker</span>
+          <div className="nav-links">
+            <button onClick={() => setScreen('timer')} className={`nav-btn ${screen === 'timer' ? 'active' : ''}`}>Таймер</button>
+            <button onClick={() => setScreen('settings')} className={`nav-btn ${screen === 'settings' ? 'active' : ''}`}>Налаштування</button>
+            <button onClick={() => setScreen('stats')} className={`nav-btn ${screen === 'stats' ? 'active' : ''}`}>Статистика</button>
+            <button onClick={() => setScreen('history')} className={`nav-btn ${screen === 'history' ? 'active' : ''}`}>Історія</button>
+
+            <span style={{ color: '#bdc3c7', fontSize: '0.9rem', marginLeft: '5px' }}>
             user: {user.username}
           </span>
-          
-          <button onClick={handleLogout} className="logout-btn">Вихід</button>
-        </div>
-      </nav>
 
-      {screen === 'timer' && (
-        <Timer 
-          settings={settings} stage={stage} setStage={setStage} minutes={minutes} setMinutes={setMinutes}
-          seconds={seconds} setSeconds={setSeconds} isActive={isActive} setIsActive={setIsActive}
-          completedCount={completedCount} setCompletedCount={setCompletedCount} onSessionComplete={handleSessionComplete}
-        />
-      )}
-      {screen === 'settings' && <Settings settings={settings} setSettings={setSettings} onBack={() => setScreen('timer')} />}
-      {screen === 'stats' && <Stats history={history} onBack={() => setScreen('timer')} />}
-      {screen === 'history' && <History history={history} onBack={() => setScreen('timer')} />}
-    </div>
+            <button onClick={handleLogout} className="logout-btn">Вихід</button>
+          </div>
+        </nav>
+
+        {screen === 'timer' && (
+            <Timer
+                settings={settings} stage={stage} setStage={setStage} minutes={minutes} setMinutes={setMinutes}
+                seconds={seconds} setSeconds={setSeconds} isActive={isActive} setIsActive={setIsActive}
+                completedCount={completedCount} setCompletedCount={setCompletedCount} onSessionComplete={handleSessionComplete}
+            />
+        )}
+        {screen === 'settings' && <Settings settings={settings} setSettings={setSettings} onBack={() => setScreen('timer')} />}
+        {screen === 'stats' && <Stats history={history} onBack={() => setScreen('timer')} />}
+        {screen === 'history' && <History history={history} onBack={() => setScreen('timer')} />}
+      </div>
   );
 }
 
