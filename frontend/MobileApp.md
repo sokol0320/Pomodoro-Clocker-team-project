@@ -1,0 +1,1 @@
+﻿https://snack.expo.dev/@t1me/juicy-green-chip
